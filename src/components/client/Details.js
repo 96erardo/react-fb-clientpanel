@@ -8,9 +8,36 @@ import { firestoreConnect } from 'react-redux-firebase';
 import classnames from 'classnames';
 
 class Details extends Component {
+    state = {
+        showBalanceUpdate: false,
+        balanceUpdateAmount: ''
+    };
+
+    toggleBalanceUpdate = (e) => {
+        this.setState((prevState, prevProps) => ({
+            showBalanceUpdate: !prevState.showBalanceUpdate
+        }));
+    };
+
+    onChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
+    };
+
+    onBalanceUpdate = (e) => {
+        e.preventDefault();
+
+        const { balanceUpdateAmount } = this.state;
+        const { firestore, client } = this.props;
+
+        firestore
+            .update({collection: 'clients', doc: client.id}, {balance: balanceUpdateAmount})
+            .then(() => this.setState({showBalanceUpdate: false, balanceUpdateAmount: ''}));
+    }
 
     render () {
+
         const { client } = this.props;
+        const { showBalanceUpdate, balanceUpdateAmount } = this.state;
 
         if (client) {
             return (
@@ -54,7 +81,28 @@ class Details extends Component {
                                         })}>
                                             ${parseFloat(client.balance).toFixed(2)}
                                         </span>
+                                        <button onClick={this.toggleBalanceUpdate} className="btn btn-link">
+                                            <FontAwesomeIcon icon="pencil-alt" />
+                                        </button>
                                     </h3>
+                                    {showBalanceUpdate &&
+                                        <form onSubmit={this.onBalanceUpdate}>
+                                            <div className="input-group">
+                                                <input 
+                                                    required
+                                                    type="number"
+                                                    name="balanceUpdateAmount"
+                                                    className="form-control"
+                                                    value={balanceUpdateAmount}
+                                                    placeholder="Update Balance"
+                                                    onChange={this.onChange}
+                                                />
+                                                <div className="input-group-append">
+                                                    <input type="submit" value="Update" className="btn btn-outline-dark" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
                                 </div>
                             </div>
                             <hr/>

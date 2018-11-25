@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlus, faUsers, faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faUsers, faArrowCircleRight, faArrowCircleLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/layout/Dashboard';
@@ -12,7 +12,7 @@ import Details from './components/client/Details';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-library.add(faPlus, faUsers, faArrowCircleRight, faArrowCircleLeft);
+library.add(faPlus, faUsers, faArrowCircleRight, faArrowCircleLeft, faPencilAlt);
 
 class App extends Component {
   render() {
