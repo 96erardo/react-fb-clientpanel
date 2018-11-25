@@ -34,6 +34,15 @@ class Details extends Component {
             .then(() => this.setState({showBalanceUpdate: false, balanceUpdateAmount: ''}));
     }
 
+    onDeleteClick = (e) => {
+
+        const { client, firestore, history } = this.props;
+
+        firestore
+            .delete({collection: 'clients', doc: client.id})
+            .then(() => history.push('/'))
+    }
+
     render () {
 
         const { client } = this.props;
@@ -53,7 +62,7 @@ class Details extends Component {
                                 <Link to={`/client/edit/${client.id}`} className="btn btn-dark">
                                     Edit
                                 </Link>
-                                <button className="btn btn-danger">
+                                <button className="btn btn-danger" onClick={this.onDeleteClick}>
                                     Delete
                                 </button>
                             </div>
