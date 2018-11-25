@@ -19,8 +19,13 @@ const rrfConfig = {
     useFirestoreForProfile: true
 };
 
+
 firebase.initializeApp(firebaseConfig);
-firebase.firestore();
+
+const firestore = firebase.firestore();
+const settings = { timestampsInSnapshots: true };
+
+firestore.settings(settings);
 
 const createStoreWithFirebase = compose(
     reactReduxFirebase(firebase, rrfConfig),

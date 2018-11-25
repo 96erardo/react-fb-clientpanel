@@ -20,8 +20,6 @@ class Clients extends Component {
                 return total + parseFloat(client.balance.toString())
             }, 0);
 
-            console.log(totalOwed);
-
             return { totalOwed };
         }
 
@@ -55,18 +53,18 @@ class Clients extends Component {
                         </h5>
                     }
                 </div>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Balance</th>
-                            <th />
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {clients.length > 0 ? (
-                            clients.map(client => (
+                {clients.length > 0 ? (
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Balance</th>
+                                <th />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {clients.map(client => (
                                 <tr key={client.id}>
                                     <td>{client.firstName} {client.lastName}</td>
                                     <td>{client.email}</td>
@@ -77,14 +75,13 @@ class Clients extends Component {
                                 </Link>
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <Loading />
-                        )}
-                    </tbody>
-                </table>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <Loading />
+                )}
             </div>
-
         </div>
         )
     }
