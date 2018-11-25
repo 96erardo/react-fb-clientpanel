@@ -8,6 +8,7 @@ import { faPlus, faUsers, faArrowCircleRight, faArrowCircleLeft } from '@fortawe
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/layout/Dashboard';
 import AddClient from './components/client/AddClient';
+import Details from './components/client/Details';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,6 +25,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={Dashboard}/>
                 <Route exact path="/client/add" component={AddClient} />
+                <Route exact path="/client/:id" component={Details} />
               </Switch>
             </div>
           </div>
