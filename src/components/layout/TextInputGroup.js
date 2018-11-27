@@ -10,6 +10,7 @@ const TextInputGroup = ({
   type,
   onChange,
   required,
+  defaultValue,
   error
 }) => {
   return (
@@ -25,6 +26,7 @@ const TextInputGroup = ({
         value={value}
         required={required}
         onChange={onChange}
+        defaultValue={defaultValue}
       />
       {error && <div className="invalid-feedback">{error}</div>}
     </div>

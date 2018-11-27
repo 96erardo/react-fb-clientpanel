@@ -9,32 +9,13 @@ import TextInputGroup from './../layout/TextInputGroup';
 
 class EditClient extends Component {
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
+        firstName: '', 
+        lastName: '', 
+        email: '', 
+        phone: '', 
         balance: '',
         errors: {}
     }
-
-    static getDerivedStateFromProps (props, state) {
-        const { client } = props;
-
-        if (client) {
-
-            const clone = Object.assign({}, client);
-
-            return {
-                firstName: clone.firstName,
-                lastName: clone.lastName,
-                email: clone.email,
-                phone: clone.phone,
-                balance: clone.balance
-            }
-        }
-
-        return null;
-    }   
 
     onChange = (e) => {
 
@@ -60,6 +41,13 @@ class EditClient extends Component {
     }
 
     render() {
+        
+        if (!this.props.client) {
+            return <h1>Loading...</h1>;
+        }
+
+        const { firstName, lastName, email, phone, balance } = this.props.client;
+
         return (
             <div>
                 <div className="row mb-2">
@@ -78,52 +66,57 @@ class EditClient extends Component {
                             <TextInputGroup
                                 label="First Name"
                                 name="firstName"
-                                value={this.state.firstName}
+                                defaultValue={firstName}
                                 placeholder=""
                                 type="text"
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.firstName}
+                                value={this.state.firstName}
                             />
                             <TextInputGroup
                                 label="Last Name"
                                 name="lastName"
-                                value={this.state.lastName}
+                                defaultValue={lastName}
                                 placeholder=""
                                 type="text"
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.lastName}
+                                value={this.state.lastName}
                             />
                             <TextInputGroup
                                 label="Email"
                                 name="email"
-                                value={this.state.email}
+                                defaultValue={email}
                                 placeholder=""
                                 type="text"
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.email}
+                                value={this.state.email}
                             />
                             <TextInputGroup
                                 label="Phone"
                                 name="phone"
-                                value={this.state.phone}
+                                defaultValue={phone}
                                 placeholder=""
                                 type="text"
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.phone}
+                                value={this.state.phone}
                             />
                             <TextInputGroup
                                 label="Balance"
                                 name="balance"
-                                value={this.state.balance}
+                                defaultValue={balance}
                                 placeholder=""
                                 type="number "
                                 onChange={this.onChange}
                                 required={false}
                                 error={this.state.errors.balance}
+                                value={this.state.balance}
                             />
                             <button type="submit" className="btn btn-primary btn-block">
                                 Submit
