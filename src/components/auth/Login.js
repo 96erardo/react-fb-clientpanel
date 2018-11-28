@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TextInputGroup from './../layout/TextInputGroup';
+import Alert from './../layout/Alert';
+
+import { notifyUser } from './../../redux/actions/notifyActions';
 
 class Login extends Component {
     state = {
@@ -18,15 +21,20 @@ class Login extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
-        const { firebase } = this.props;
+        const { firebase, notify } = this.props;
         const { email, password } = this.state;
 
         firebase   
             .login({email, password})
-            .catch((err) => alert('Invalid Login Credentials'));
+            .catch((err) => {
+                notify('Invalid Login Credentials', 'error');
+            });
     }
 
     render() {
+
+        const { message, messageType } = this.props;
+
         return (
         <div className="row">
             <div className="col-md-6 mx-auto">
@@ -38,6 +46,12 @@ class Login extends Component {
                             </span>
                             Login
                         </h1>
+                        {message && 
+                            <Alert 
+                                message={message}
+                                messageType={messageType}
+                            />
+                        }
                         <form onSubmit={this.onSubmit}>
                             <TextInputGroup 
                                 label="Email"
@@ -72,7 +86,22 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    firebase: PropTypes.object.isRequired
+    firebase: PropTypes.object.isRequired,
+    notify: PropTypes.func.isRequired,
+    message: PropTypes.string.isRequired,
+    messageType: PropTypes.string.isRequired
 };
 
-export default firebaseConnect()(Login);
+const mapStateToProps = (state) => ({
+    message: state.notify.message,
+    messageType: state.notify.messageType
+});
+
+const mapDispatchtToProps = (dispatch) => ({
+    notify: (message, mesasgeType) => dispatch(notifyUser(message, mesasgeType))
+});
+
+export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps, mapDispatchtToProps)
+)(Login);
