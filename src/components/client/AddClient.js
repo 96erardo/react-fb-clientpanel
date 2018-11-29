@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TextInputGroup from './../layout/TextInputGroup';
 import { firestoreConnect } from 'react-redux-firebase';
-
+import { compose } from 'redux';
+import { connect} from 'react-redux';
 
 class AddClient extends Component {
   state = {
@@ -36,12 +37,14 @@ class AddClient extends Component {
     firestore
       .add({collection: 'clients'}, client)
       .then(() => history.push('/'));
-
-
-    console.log(this.state);
   }
 
   render() {
+
+    console.log(this.props.settings);
+
+    const { disableBalanceOnAdd } = this.props.settings;
+
     return (
       <div>
         <div className="row mb-2">
@@ -104,7 +107,8 @@ class AddClient extends Component {
                 placeholder=""
                 type="number "
                 onChange={this.onChange}
-                required={false}
+                required={!disableBalanceOnAdd}
+                disabled={disableBalanceOnAdd}
                 error={this.state.errors.balance}
               />
               <button 
@@ -122,7 +126,15 @@ class AddClient extends Component {
 }
 
 AddClient.propTypes = {
-  firestore: PropTypes.object.isRequired
+  firestore: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired
 };
 
-export default firestoreConnect()(AddClient);
+const mapStateToProps = (state) => ({
+  settings: state.settings
+});
+
+export default compose(
+  firestoreConnect(),
+  connect(mapStateToProps)
+)(AddClient);

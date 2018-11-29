@@ -88,8 +88,8 @@ class Login extends Component {
 Login.propTypes = {
     firebase: PropTypes.object.isRequired,
     notify: PropTypes.func.isRequired,
-    message: PropTypes.string.isRequired,
-    messageType: PropTypes.string.isRequired
+    message: PropTypes.string,
+    messageType: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({

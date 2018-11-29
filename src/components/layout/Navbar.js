@@ -38,6 +38,7 @@ class Navbar extends Component {
       'show': this.state.collapsed
     });
 
+    const { allowRegistration } = this.props.settings;
     const { isAuthenticated } = this.state;
     const { auth } = this.props;
 
@@ -84,8 +85,12 @@ class Navbar extends Component {
                   </li>                  
                 </ul>
               ):(
-                <ul>
-
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link to="/register">
+                      Signup
+                    </Link>
+                  </li>
                 </ul>
               )}
             </div>
