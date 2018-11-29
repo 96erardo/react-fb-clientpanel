@@ -86,7 +86,7 @@ class Details extends Component {
                                         Balance: {' '}
                                         <span className={classnames({
                                             'text-danger': client.balance > 0,
-                                            'text-success': client.balance == 0
+                                            'text-success': client.balance === 0
                                         })}>
                                             ${parseFloat(client.balance).toFixed(2)}
                                         </span>
@@ -132,6 +132,10 @@ class Details extends Component {
         return <h4>Loading...</h4>
     }
 }
+
+Details.propTypes = {
+    client: PropTypes.object
+};
 
 export default compose(
     firestoreConnect((props) => [

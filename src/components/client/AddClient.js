@@ -40,9 +40,7 @@ class AddClient extends Component {
   }
 
   render() {
-
-    console.log(this.props.settings);
-
+    
     const { disableBalanceOnAdd } = this.props.settings;
 
     return (

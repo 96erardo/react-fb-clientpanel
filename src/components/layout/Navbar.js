@@ -57,42 +57,43 @@ class Navbar extends Component {
                 <span className="navbar-toggler-icon"></span>
             </button>   
             <div className={navclass} id="navbarMain">
-              <ul className="navbar-nav mr-auto">
-                {isAuthenticated &&
-                  <li className="nav-item">
-                    <Link to="/" className="nav-link">
-                      Dashboard
-                    </Link>
-                  </li>
-                }
-              </ul>
-              {isAuthenticated ? (
+              {isAuthenticated &&
+                <React.Fragment>
+                  <ul className="navbar-nav mr-auto">
+                      <li className="nav-item">
+                        <Link to="/" className="nav-link">
+                          Dashboard
+                        </Link>
+                      </li>
+                  </ul>
+                  <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                      <a href="#!" className="nav-link">
+                        {auth.email}
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/settings" className="nav-link">
+                        Settings
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#!" className="nav-link" onClick={this.onLogoutClick}>
+                        Logout
+                      </a>
+                    </li>                  
+                  </ul>
+                </React.Fragment>
+              }
+              {(!isAuthenticated && allowRegistration) &&
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <a href="#!" className="nav-link">
-                      {auth.email}
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/settings" className="nav-link">
-                      Settings
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <a href="#!" className="nav-link" onClick={this.onLogoutClick}>
-                      Logout
-                    </a>
-                  </li>                  
-                </ul>
-              ):(
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link to="/register">
+                    <Link to="/register" className="nav-link">
                       Signup
                     </Link>
                   </li>
                 </ul>
-              )}
+              }
             </div>
         </div>
       </nav>
@@ -108,7 +109,7 @@ Navbar.propTypes = {
 
 export default compose(
   firebaseConnect(),
-  connect((state, props) => ({
+  connect((state) => ({
     auth: state.firebase.auth,
     settings: state.settings
   }))
