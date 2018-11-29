@@ -8,17 +8,19 @@ import TextInputGroup from './../layout/TextInputGroup';
 
 
 class EditClient extends Component {
-    state = {
-        firstName: '', 
-        lastName: '', 
-        email: '', 
-        phone: '', 
-        balance: '',
-        errors: {}
+    constructor (props) {
+        super(props);
+
+        this.state = { errors: {} };
+
+        this.firstNameInput = React.createRef();
+        this.lastNameInput = React.createRef();
+        this.emailInput = React.createRef();
+        this.phoneInput = React.createRef();
+        this.balanceInput = React.createRef();
     }
 
     onChange = (e) => {
-
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -27,9 +29,15 @@ class EditClient extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
-        const { firstName, lastName, email, phone, balance } = this.state;
+        const client = {
+            firstName: this.firstNameInput.current.value,
+            lastName: this.lastNameInput.current.value,
+            email: this.emailInput.current.value,
+            phone: this.phoneInput.current.value,
+            balance: this.balanceInput.current.value
+        };
+
         const { firestore, match, history } = this.props;
-        const client = { firstName, lastName, email, phone, balance };
 
         if (client.balance === '') {
             client.balance = '0';
@@ -73,7 +81,7 @@ class EditClient extends Component {
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.firstName}
-                                value={this.state.firstName}
+                                reference={this.firstNameInput}
                             />
                             <TextInputGroup
                                 label="Last Name"
@@ -84,7 +92,7 @@ class EditClient extends Component {
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.lastName}
-                                value={this.state.lastName}
+                                reference={this.lastNameInput}
                             />
                             <TextInputGroup
                                 label="Email"
@@ -95,7 +103,7 @@ class EditClient extends Component {
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.email}
-                                value={this.state.email}
+                                reference={this.emailInput}
                             />
                             <TextInputGroup
                                 label="Phone"
@@ -106,19 +114,19 @@ class EditClient extends Component {
                                 onChange={this.onChange}
                                 required={true}
                                 error={this.state.errors.phone}
-                                value={this.state.phone}
+                                reference={this.phoneInput}
                             />
                             <TextInputGroup
                                 label="Balance"
                                 name="balance"
                                 defaultValue={balance}
                                 placeholder=""
-                                type="number "
+                                type="number"
                                 onChange={this.onChange}
                                 required={!disableBalanceOnEdit}
                                 disabled={disableBalanceOnEdit}
                                 error={this.state.errors.balance}
-                                value={this.state.balance}
+                                reference={this.balanceInput}
                             />
                             <button type="submit" className="btn btn-primary btn-block">
                                 Submit

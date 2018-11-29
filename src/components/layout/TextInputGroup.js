@@ -12,6 +12,7 @@ const TextInputGroup = ({
   required,
   defaultValue,
   disabled,
+  reference,
   error
 }) => {
   return (
@@ -25,6 +26,7 @@ const TextInputGroup = ({
         })}
         placeholder={placeholder}
         value={value}
+        ref={reference}
         required={required}
         onChange={onChange}
         disabled={disabled}
@@ -39,7 +41,8 @@ TextInputGroup.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  defaultValue: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string
