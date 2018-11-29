@@ -1,3 +1,10 @@
+## Deployed to Github Pages
+
+Enter here: [https://gerardoagl96.github.io/react-fb-clientpanel](https://gerardoagl96.github.io/react-fb-clientpanel)
+
+Email: example@example.com 
+Pass: 12345678
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

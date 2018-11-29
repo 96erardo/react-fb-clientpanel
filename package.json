@@ -2,6 +2,7 @@
   "name": "react-fb-clientpanel",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gerardoagl96.github.io/react-fb-clientpanel",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
@@ -9,6 +10,7 @@
     "bootstrap": "^4.1.3",
     "classnames": "^2.2.6",
     "firebase": "^5.5.9",
+    "gh-pages": "^2.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
@@ -20,6 +22,7 @@
     "redux-firestore": "^0.6.0"
   },
   "scripts": {
+    "deploy": "npm run build&&gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
