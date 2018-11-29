@@ -38,6 +38,7 @@ class Navbar extends Component {
       'show': this.state.collapsed
     });
 
+    const { allowRegistration } = this.props.settings;
     const { isAuthenticated } = this.state;
     const { auth } = this.props;
 
@@ -73,14 +74,23 @@ class Navbar extends Component {
                     </a>
                   </li>
                   <li className="nav-item">
+                    <Link to="/settings" className="nav-link">
+                      Settings
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <a href="#!" className="nav-link" onClick={this.onLogoutClick}>
                       Logout
                     </a>
                   </li>                  
                 </ul>
               ):(
-                <ul>
-
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link to="/register">
+                      Signup
+                    </Link>
+                  </li>
                 </ul>
               )}
             </div>
@@ -92,12 +102,14 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   firebase: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired
 };
 
 export default compose(
   firebaseConnect(),
   connect((state, props) => ({
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    settings: state.settings
   }))
 )(Navbar);

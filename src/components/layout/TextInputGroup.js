@@ -11,6 +11,7 @@ const TextInputGroup = ({
   onChange,
   required,
   defaultValue,
+  disabled,
   error
 }) => {
   return (
@@ -26,6 +27,7 @@ const TextInputGroup = ({
         value={value}
         required={required}
         onChange={onChange}
+        disabled={disabled}
         defaultValue={defaultValue}
       />
       {error && <div className="invalid-feedback">{error}</div>}
@@ -44,7 +46,8 @@ TextInputGroup.propTypes = {
 };
 
 TextInputGroup.defaultProps = {
-  type: 'text'
+  type: 'text',
+  disabled: false
 };
 
 export default TextInputGroup;

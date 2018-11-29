@@ -13,6 +13,7 @@ import AddClient from './components/client/AddClient';
 import Details from './components/client/Details';
 import EditClient from './components/client/EditClient';
 import Login from './components/auth/Login';
+import Settings from './components/settings/Settings';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -51,6 +52,11 @@ class App extends Component {
                   exact 
                   path="/login" 
                   component={UserIsNotAuthenticated(Login)} 
+                />
+                <Route
+                  exact
+                  path="/settings"
+                  component={UserIsAuthenticated(Settings)}
                 />
               </Switch>
             </div>
